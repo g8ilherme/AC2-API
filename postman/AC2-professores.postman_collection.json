@@ -1,0 +1,298 @@
+{
+  "info": {
+    "name": "AC2 - Guilherme Renaldino Pichini",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - Listar professores",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/professores",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 200', () => pm.response.to.have.status(200));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Buscar Guilherme por ID",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/professores/1",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 200', () => pm.response.to.have.status(200));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Listar turmas iniciais",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/professores/1/turmas",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 200', () => pm.response.to.have.status(200));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Adicionar turma",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/professores/1/turmas",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"ADS2\",\n  \"disciplina\": \"Programação Web\",\n  \"alunos\": [\n    \"Carlos Lima\",\n    \"Daniela Alves\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 201', () => pm.response.to.have.status(201));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Confirmar turma adicionada",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/professores/1/turmas",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 200', () => pm.response.to.have.status(200));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Atualizar professor",
+      "request": {
+        "method": "PUT",
+        "url": "{{baseUrl}}/professores/1",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Guilherme Renaldino Pichini\",\n  \"idade\": 31,\n  \"departamento\": \"Tecnologia\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 200', () => pm.response.to.have.status(200));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Confirmar atualização",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/professores/1",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 200', () => pm.response.to.have.status(200));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 - Filtrar por departamento",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/professores/departamento/Tecnologia",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 200', () => pm.response.to.have.status(200));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 - Atualizar ID inexistente",
+      "request": {
+        "method": "PUT",
+        "url": "{{baseUrl}}/professores/999",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Guilherme Renaldino Pichini\",\n  \"idade\": 31,\n  \"departamento\": \"Tecnologia\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 404', () => pm.response.to.have.status(404));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);",
+              "pm.test('Mensagem do ID', () => pm.expect(pm.response.json().mensagem).to.eql('Id não existente'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 - Remover Guilherme",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/professores/1",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 200', () => pm.response.to.have.status(200));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "11 - Confirmar exclusão na lista",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/professores",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 200', () => pm.response.to.have.status(200));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "12 - Remover ID inexistente",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/professores/1",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status esperado: 404', () => pm.response.to.have.status(404));",
+              "pm.test('Resposta JSON', () => pm.response.to.be.json);",
+              "pm.test('Mensagem do ID', () => pm.expect(pm.response.json().mensagem).to.eql('Id não existente'));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
